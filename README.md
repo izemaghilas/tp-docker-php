@@ -1,13 +1,59 @@
-Objectif:
+<div align=center>
+    <h1>Docker compose services</h1>
+</div>
 
-Vous devez connecter les services docker entre eux pour que le PHP puisse accéder à votre BDD et afficher la liste d'articles.
+configuration des services docker compose.
 
-Reprendre le template de code du repo.
+|services | port |
+--------  |------|
+|php      | 8000 |
+|db       | 5432 |
+|adminer  | 8080 |
 
-Créer votre propre repo GitHub (ou un fork) pour héberger votre solution proposée
+## requirements
+- **git**
+- **docker**
+- **docker compose**
 
-Vous devez compléter le docker-compose pour faire fonctionner les services entre eux.
+## running
+```bash
+$ git clone git@github.com:izemaghilas/tp-docker-php.git
+$ cd tp-docker-php
+```
 
-Compléter le fichier config.php avec les bonnes informations pour que PDO puisse se connecter à votre BDD
+```bash
+# créez le fichier .env à la racine de dossier
+# puis spécifiez les valeurs des variables d'environnement suivantes 
 
-Vous devez avoir ce résultat ![result](https://github.com/quentinhermiteau/tp-docker-php/blob/main/result.png?raw=true)
+DB_HOST=db # docker compose database service
+DB_PORT=
+DB_USER=
+DB_PASSWORD=
+DB_NAME=
+```
+
+```php
+// créez le ficher config.php dans le dossier src
+// ajoutez le code suivant:
+
+<?php
+
+class Config {
+    public static $DB_HOST = '';
+    public static $DB_PORT = '';
+    public static $DB_USER = '';
+    public static $DB_PASSWORD = '';
+    public static $DB_NAME = '';
+}
+
+// puis initialisez les variables avec les même valeurs spécifiées dans le fichier .env
+```
+
+```bash
+# build et run les services
+$ docker compose up -d
+```
+
+pour un premier lancement des services, veuillez à lancer les requêtes sql de ficher **dump.sql** via le service **adminer**, pour créer la table article et insérer un enregistrement.
+
+Résultat attendu ![result](https://github.com/quentinhermiteau/tp-docker-php/blob/main/result.png?raw=true) 
